@@ -1,0 +1,32 @@
+@page "/Login"
+@using BlazorCrudDotNet7.Shared
+@using BlazorCrudDotNet7.Shared.Dtos
+@using Blazored.LocalStorage
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>Login</PageTitle>
+
+<h3>Login</h3>
+
+<EditForm Model="user" OnSubmit="HandleLogin">
+    <label for="username">Username: </label>
+    <InputText id="username" @bind-Value="user.Username"></InputText> 
+    <label for="password">Password: </label>
+    <InputText id="password" @bind-Value="user.Password" type="password"></InputText>
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    User user = new User();
+
+    async Task HandleLogin()
+    {
+        var result = await Http.PostAsJsonAsync("api/auth", user);
+        var token = await result.Content.ReadAsStringAsync();
+        Console.WriteLine(token);
+        await LocalStorage.SetItemAsync("token", token);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+}

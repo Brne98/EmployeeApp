@@ -9,10 +9,10 @@
 
 <AuthorizeView>
     <NotAuthorized>
-        <h4 class="alert-danger text-center">You will not see this information next time, you will need to register!</h4>
+        <h4 class="alert-danger text-center">You need to login!</h4>
     </NotAuthorized>
-</AuthorizeView>
 
+    <Authorized>
 @if (!EmployeeService.Employees.Any())
 {
     <h4 class="alert-danger text-center">No employees yet...</h4>
@@ -61,6 +61,8 @@ else
         @onclick="CreateNewEmployee">
     Hire Employee
 </button>
+</Authorized>
+</AuthorizeView>
 
 @code {
     protected override async Task OnInitializedAsync()

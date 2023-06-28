@@ -1,0 +1,92 @@
+@page "/employees"
+@attribute [Authorize]
+@inject IEmployeeService EmployeeService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Employees</PageTitle>
+
+<h3>Employees</h3>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <h4 class="alert-danger text-center">You will not see this information next time, you will need to register!</h4>
+    </NotAuthorized>
+</AuthorizeView>
+
+@if (!EmployeeService.Employees.Any())
+{
+    <h4 class="alert-danger text-center">No employees yet...</h4>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>Birthday(m/d/y)</th>
+            <th>Salary<b>(rsd)</b></th>
+            <th>Edit</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var employee in EmployeeService.Employees)
+        {
+            <tr>
+                <td>@employee.FullName</td>
+                <td>@employee.Position</td>
+                <td>@employee.PhoneNumber</td>
+                <td>@employee.Age</td>
+                <td>@employee.Birth.ToString("d")</td>
+                <td>@employee.Salary</td>
+                <td>
+                    <button class="btn btn-primary"
+                            @onclick="() => ShowEmployee(employee.Id)">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+        <tr class="table-light">
+            <td colspan="7">Total (rsd/month): <b>@TotalSalaries(EmployeeService.Employees)</b></td>
+        </tr>
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary"
+        @onclick="CreateNewEmployee">
+    Hire Employee
+</button>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await EmployeeService.GetEmployees();
+    }
+
+    void ShowEmployee(int id)
+    {
+        NavigationManager.NavigateTo($"employee/{id}");
+    }
+
+    void CreateNewEmployee()
+    {
+        NavigationManager.NavigateTo("/employee");
+    }
+
+    int TotalSalaries(List<BlazorCrudDotNet7.Shared.Employee> employees)
+    {
+        int salaries = 0;
+        
+        foreach (var employee in employees)
+        {
+            salaries += employee.Salary;
+        }
+
+        return salaries;
+    }
+}

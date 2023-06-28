@@ -1,0 +1,100 @@
+@page "/employee"
+@page "/employee/{id:int}"
+@inject IEmployeeService EmployeeService
+@inject NavigationManager NavigationManager
+
+@if (Id is null)
+{
+    <PageTitle>Hire Employee</PageTitle>
+    <h3>Hire Employee</h3>
+}
+else
+{
+    <PageTitle>Edit employee</PageTitle>
+    <h3>Edit employee: @employee.FullName</h3>
+}
+
+<EditForm Model="employee" OnSubmit="HandleSubmit">
+    <div>
+        <label for="fullName">Name</label>
+        <InputText id="fullName" @bind-Value="employee.FullName" class="form-control" />
+    </div>
+    <div>
+        <label for="position">Position</label>
+        <InputText id="position" @bind-Value="employee.Position" class="form-control" />
+    </div>
+    <div>
+        <label for="phoneNumber">Phone</label>
+        <InputText id="phoneNumber" @bind-Value="employee.PhoneNumber" class="form-control" />
+    </div>
+    <div>
+        <label for="salary">Salary</label>
+        <InputNumber id="salary" @bind-Value="employee.Salary" class="form-control" />
+    </div>
+    <div>
+        <label for="age">Age</label>
+        <InputNumber id="age" @bind-Value="employee.Age" class="form-control" />
+    </div>
+    <div>
+        <label for="birthday">Birthday</label>
+        <InputDate id="birthday" @bind-Value="employee.Birth" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">@btnText</button>
+    @if (Id is not null)
+    {
+        <button type="button" class="ml-1 mr-1 btn btn-danger"
+                @onclick="DeleteEmployee">
+            Fire Employee
+        </button>
+    }
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    string btnText = string.Empty;
+
+    BlazorCrudDotNet7.Shared.Employee employee =
+        new() { FullName = "New Employee" };
+
+    protected override void OnInitialized()
+    {
+        btnText = Id == null ? "Hire Employee" : "Update Employee";
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            var result = await EmployeeService.GetEmployeeById(Id);
+            
+            if (result is not null)
+            {
+                employee = result;
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/employee");
+            }
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id is not null)
+        {
+            await EmployeeService.UpdateEmployee(employee.Id,employee);
+        }
+        else
+        {
+            await EmployeeService.CreateEmployee(employee);
+        }
+    }
+
+    async Task DeleteEmployee()
+    {
+        await EmployeeService.DeleteEmployee(employee.Id);
+    }
+}

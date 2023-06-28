@@ -4,6 +4,7 @@
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
 
 <PageTitle>Login</PageTitle>
 
@@ -44,5 +45,6 @@
         Console.WriteLine(token);
         await LocalStorage.SetItemAsync("token", token);
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        NavigationManager.NavigateTo("");
     }
 }

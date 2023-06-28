@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlazorCrudDotNet7.Shared
+namespace BlazorCrudDotNet7.Shared.Entities
 {
     public class Product
     {

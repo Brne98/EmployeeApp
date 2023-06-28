@@ -1,4 +1,5 @@
 ﻿using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotNet7.Server.Data
@@ -24,5 +25,6 @@ namespace BlazorCrudDotNet7.Server.Data
 
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Employee> Employees => Set<Employee>();
+        public DbSet<User> Users => Set<User>();
     }
 }

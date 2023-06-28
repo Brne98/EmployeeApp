@@ -51,7 +51,7 @@ else
             </tr>
         }
         <tr class="table-light">
-            <td colspan="7">Total (rsd/month): <b>@TotalSalaries(EmployeeService.Employees)</b></td>
+            <td colspan="7"><b>Total (rsd/month): @TotalSalaries(EmployeeService.Employees)</b></td>
         </tr>
         </tbody>
     </table>
@@ -80,7 +80,7 @@ else
         NavigationManager.NavigateTo("/employee");
     }
 
-    int TotalSalaries(List<BlazorCrudDotNet7.Shared.Employee> employees)
+    int TotalSalaries(List<BlazorCrudDotNet7.Shared.Entities.Employee> employees)
     {
         int salaries = 0;
         

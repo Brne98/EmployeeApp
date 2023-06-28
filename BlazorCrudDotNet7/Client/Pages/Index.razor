@@ -1,8 +1,16 @@
 ﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, User!</h1>
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, Admin</h1>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Hello, User!</h1>
+    </NotAuthorized>
+</AuthorizeView>
 
 Welcome to EmployeeApp.
 

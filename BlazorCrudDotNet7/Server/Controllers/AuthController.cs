@@ -1,6 +1,10 @@
-using BlazorCrudDotNet7.Shared;
-using BlazorCrudDotNet7.Shared.Dtos;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using BlazorCrudDotNet7.Server.Data;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlazorCrudDotNet7.Server.Controllers;
 
@@ -8,10 +12,50 @@ namespace BlazorCrudDotNet7.Server.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    [HttpPost]
-    public async Task<ActionResult<string>> Login(User request)
+    private readonly IConfiguration _configuration;
+    private readonly DataContext _context;
+
+    public AuthController(IConfiguration configuration, DataContext context)
     {
-        string token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVG9ueSBTdGFyayIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Iklyb24gTWFuIiwiZXhwIjozMTY4NTQwMDAwfQ.IbVQa1lNYYOzwso69xYfsMOHnQfO3VLvVqV2SOXS7sTtyyZ8DEf5jmmwz2FGLJJvZnQKZuieHnmHkg7CGkDbvA";
-        return token;
+        _configuration = configuration;
+        _context = context;
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<User>> Login(User request)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == request.Username);
+
+        if (user is null)
+            return BadRequest("User does not exist!");
+        
+        if(user.Password != request.Password)
+            return BadRequest("Password incorrect!");
+
+        string token = CreateToken(user);
+        
+        return Ok(token);
+    }
+
+    private string CreateToken(User user)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, user.Username)
+        };
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!));
+
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            claims: claims, 
+            expires: DateTime.Now.AddDays(1), 
+            signingCredentials: creds);
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        return jwt;
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Net;
 using System.Net.Http.Json;
+using BlazorCrudDotNet7.Shared.Entities;
 
 namespace BlazorCrudDotNet7.Client.Services.ProductService
 {

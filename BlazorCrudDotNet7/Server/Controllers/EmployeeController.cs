@@ -1,5 +1,6 @@
 using BlazorCrudDotNet7.Server.Services.EmployeeService;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorCrudDotNet7.Server.Controllers;

@@ -1,5 +1,6 @@
 ﻿using BlazorCrudDotNet7.Server.Data;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotNet7.Server.Services.ProductService

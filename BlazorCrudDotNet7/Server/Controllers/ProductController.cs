@@ -1,5 +1,6 @@
 ﻿using BlazorCrudDotNet7.Server.Services.ProductService;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

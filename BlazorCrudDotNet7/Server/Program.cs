@@ -1,4 +1,5 @@
 using BlazorCrudDotNet7.Server.Data;
+using BlazorCrudDotNet7.Server.Services.AuthService;
 using BlazorCrudDotNet7.Server.Services.EmployeeService;
 using BlazorCrudDotNet7.Server.Services.ProductService;
 
@@ -11,6 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddSwaggerGen(); 
 

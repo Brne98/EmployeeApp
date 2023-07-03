@@ -2,6 +2,7 @@ using BlazorCrudDotNet7.Server.Data;
 using BlazorCrudDotNet7.Server.Services.AuthService;
 using BlazorCrudDotNet7.Server.Services.EmployeeService;
 using BlazorCrudDotNet7.Server.Services.ProductService;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<DataContext>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DataContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddSwaggerGen(); 
 
 var app = builder.Build();
 
@@ -22,8 +28,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwagger();
 }
 else
 {

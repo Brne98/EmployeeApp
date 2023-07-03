@@ -51,7 +51,10 @@ namespace BlazorCrudDotNet7.Server.Services.ProductService
             var dbProduct = await _context.Products.FindAsync(productId);
             if (dbProduct != null)
             {
+                dbProduct.ImageUrl = product.ImageUrl;
                 dbProduct.Title = product.Title;
+                dbProduct.Description = product.Description;
+                dbProduct.Quantity = product.Quantity;
                 dbProduct.Category = product.Category;
                 dbProduct.Price = product.Price;
 

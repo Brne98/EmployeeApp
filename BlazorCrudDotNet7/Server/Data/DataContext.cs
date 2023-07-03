@@ -1,5 +1,4 @@
-﻿using BlazorCrudDotNet7.Shared;
-using BlazorCrudDotNet7.Shared.Entities;
+﻿using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotNet7.Server.Data
@@ -11,11 +10,11 @@ namespace BlazorCrudDotNet7.Server.Data
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EmployeeApp;Trusted_Connection=true;TrustServerCertificate=true;");
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     base.OnConfiguring(optionsBuilder);
+        //     optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EmployeeApp;Trusted_Connection=true;TrustServerCertificate=true;");
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

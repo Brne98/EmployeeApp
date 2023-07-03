@@ -16,18 +16,30 @@ else
 
 <EditForm Model="product" OnSubmit="HandleSubmit">
     <div>
+        <label for="image">Image(url)</label>
+        <InputText id="image" @bind-Value="product.ImageUrl" class="form-control" />
+    </div>
+    <div>
         <label for="title">Title</label>
-        <InputText id="title" @bind-Value="product.Title" class="form-control" />
+        <InputText id="title" @bind-Value="product.Title" class="form-control"/>
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <InputText id="description" @bind-Value="product.Description" class="form-control"/>
+    </div>
+    <div>
+        <label for="quantity">Quantity</label>
+        <InputNumber id="quantity" @bind-Value="product.Quantity" class="form-control"/>
     </div>
     <div>
         <label for="category">Category</label>
-        <InputText id="category" @bind-Value="product.Category" class="form-control" />
+        <InputText id="category" @bind-Value="product.Category" class="form-control"/>
     </div>
     <div>
         <label for="price">Price</label>
-        <InputNumber id="price" @bind-Value="product.Price" class="form-control" />
+        <InputNumber id="price" @bind-Value="product.Price" class="form-control"/>
     </div>
-    <br />
+    <br/>
     <button type="submit" class="btn btn-primary">@btnText</button>
     <button type="button" class="btn btn-danger"
             @onclick="DeleteProduct">
@@ -41,8 +53,8 @@ else
 
     string btnText = string.Empty;
 
-    BlazorCrudDotNet7.Shared.Product product =
-        new BlazorCrudDotNet7.Shared.Product { Title = "New Product" };
+    BlazorCrudDotNet7.Shared.Entities.Product product =
+        new BlazorCrudDotNet7.Shared.Entities.Product { Title = "New Product" };
 
     protected override void OnInitialized()
     {

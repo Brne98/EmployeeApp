@@ -1,5 +1,6 @@
 ﻿using BlazorCrudDotNet7.Server.Data;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotNet7.Server.Services.ProductService
@@ -50,7 +51,10 @@ namespace BlazorCrudDotNet7.Server.Services.ProductService
             var dbProduct = await _context.Products.FindAsync(productId);
             if (dbProduct != null)
             {
+                dbProduct.ImageUrl = product.ImageUrl;
                 dbProduct.Title = product.Title;
+                dbProduct.Description = product.Description;
+                dbProduct.Quantity = product.Quantity;
                 dbProduct.Category = product.Category;
                 dbProduct.Price = product.Price;
 

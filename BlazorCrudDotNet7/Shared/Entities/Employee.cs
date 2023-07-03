@@ -1,4 +1,4 @@
-namespace BlazorCrudDotNet7.Shared;
+namespace BlazorCrudDotNet7.Shared.Entities;
 
 public class Employee
 {

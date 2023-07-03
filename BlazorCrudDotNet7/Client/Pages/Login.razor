@@ -1,0 +1,50 @@
+@page "/Login"
+@using BlazorCrudDotNet7.Shared.Dtos
+@using Blazored.LocalStorage
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
+
+<PageTitle>Login</PageTitle>
+
+<h3 class="text-center">Login</h3><br/>
+
+@* <EditForm Model="user" OnSubmit="HandleLogin"> *@
+@*     <label for="username">Username: </label> *@
+@*     <InputText id="username" @bind-Value="user.Username"></InputText>  *@
+@*     <label for="password">Password: </label> *@
+@*     <InputText id="password" @bind-Value="user.Password" type="password"></InputText> *@
+@*     <button type="submit" class="btn btn-primary">Login</button> *@
+@* </EditForm> *@
+
+<EditForm Model="user" OnSubmit="HandleLogin" class="text-center">
+  <!-- Username input -->
+  <div class="form-outline mb-4">
+    <label for="username">Username: </label>
+    <InputText id="username" @bind-Value="user.Username"></InputText> 
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+      <label for="password">Password: </label>
+      <InputText id="password" @bind-Value="user.Password" type="password"></InputText>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    UserLoginDto user = new();
+
+    async Task HandleLogin()
+    {
+        var result = await Http.PostAsJsonAsync("api/auth/login", user);
+        var token = await result.Content.ReadAsStringAsync();
+        Console.WriteLine(token);
+        await LocalStorage.SetItemAsync("token", token);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        NavigationManager.NavigateTo("");
+    }
+}

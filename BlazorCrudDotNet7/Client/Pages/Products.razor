@@ -8,28 +8,48 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
         @foreach (var product in ProductService.Products)
         {
             <tr>
-                <td>@product.Title</td>
-                <td>@product.Category</td>
-                <td>@product.Price</td>
+                <td>
+                    <img src="@product.ImageUrl" 
+                        alt="@product.Title" class="img-fluid img-thumbnail" width="70px"/>
+                </td>
+                <td class="py-auto">@product.Title</td>
+                <td class="py-auto">@product.Description</td>
+                <td class="py-auto">@product.Quantity</td>
+                <td class="py-auto">@product.Category</td>
+                <td class="py-auto">@product.Price</td>
                 <td>
                     <button class="btn btn-primary"
-                        @onclick="(() => ShowProduct(product.Id))">
+                            @onclick="(() => ShowProduct(product.Id))">
                         <i class="oi oi-pencil"></i>
                     </button>
+                    <button class="btn btn-danger"
+                            @onclick="(() => DeleteProduct(product.Id))">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                    @* <button class="btn btn-success visually-hidden" *@
+                    @*         @onclick="(() => AddQuantity(product.Id))"> *@
+                    @*     <i class="oi oi-plus"></i> *@
+                    @* </button> *@
                 </td>
             </tr>
         }
+    <tr class="table-light">
+        <td colspan="7"><b>Number of products: @ProductService.Products.Count</b></td>
+    </tr>
     </tbody>
 </table>
 <button class="btn btn-primary"
@@ -46,6 +66,11 @@
     void ShowProduct(int id)
     {
         NavigationManager.NavigateTo($"product/{id}");
+    }
+
+    void DeleteProduct(int id)
+    {
+        ProductService.DeleteProduct(id);
     }
 
     void CreateNewProduct()

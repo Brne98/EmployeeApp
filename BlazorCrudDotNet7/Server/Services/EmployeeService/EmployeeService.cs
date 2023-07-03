@@ -1,5 +1,6 @@
 using BlazorCrudDotNet7.Server.Data;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotNet7.Server.Services.EmployeeService;
@@ -41,6 +42,7 @@ public class EmployeeService : IEmployeeService
             dbEmployee.Position = employee.Position;
             dbEmployee.PhoneNumber = employee.PhoneNumber;
             dbEmployee.Age = employee.Age;
+            dbEmployee.Birth = employee.Birth;
             dbEmployee.Salary = employee.Salary;
 
             await _context.SaveChangesAsync();

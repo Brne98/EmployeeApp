@@ -4,6 +4,7 @@ using BlazorCrudDotNet7.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorCrudDotNet7.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230628141654_AddUsers")]
+    partial class AddUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace BlazorCrudDotNet7.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BlazorCrudDotNet7.Shared.Entities.Employee", b =>
+            modelBuilder.Entity("BlazorCrudDotNet7.Shared.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +58,7 @@ namespace BlazorCrudDotNet7.Server.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("BlazorCrudDotNet7.Shared.Entities.Product", b =>
+            modelBuilder.Entity("BlazorCrudDotNet7.Shared.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,16 +70,7 @@ namespace BlazorCrudDotNet7.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
@@ -88,7 +82,7 @@ namespace BlazorCrudDotNet7.Server.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("BlazorCrudDotNet7.Shared.Entities.User", b =>
+            modelBuilder.Entity("BlazorCrudDotNet7.Shared.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

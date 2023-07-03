@@ -1,4 +1,5 @@
 ﻿using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 
 namespace BlazorCrudDotNet7.Client.Services.ProductService
 {

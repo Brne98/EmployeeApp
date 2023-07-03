@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using BlazorCrudDotNet7.Shared;
+using BlazorCrudDotNet7.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorCrudDotNet7.Client.Services.EmployeeService;

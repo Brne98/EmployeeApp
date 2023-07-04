@@ -9,7 +9,8 @@ public class Product
     public string? Description { get; set; }
     public string? ImageUrl { get; set; }
     public decimal? Quantity { get; set; }
-    public string Category { get; set; } = string.Empty;
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
+    public int CategoryId { get; set; }
+    public Category Category { get; set; }
 }

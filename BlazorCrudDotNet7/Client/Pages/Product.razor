@@ -32,8 +32,10 @@ else
         <InputNumber id="quantity" @bind-Value="product.Quantity" class="form-control"/>
     </div>
     <div>
-        <label for="category">Category</label>
-        <InputText id="category" @bind-Value="product.Category" class="form-control"/>
+        <label >Category</label>
+         <select class="form-control"> 
+            <option>Kategorija</option>
+        </select>
     </div>
     <div>
         <label for="price">Price</label>
@@ -53,8 +55,7 @@ else
 
     string btnText = string.Empty;
 
-    BlazorCrudDotNet7.Shared.Entities.Product product =
-        new BlazorCrudDotNet7.Shared.Entities.Product { Title = "New Product" };
+    BlazorCrudDotNet7.Shared.Entities.Product product = new() { Title = "New Product" };
 
     protected override void OnInitialized()
     {

@@ -10,20 +10,16 @@ namespace BlazorCrudDotNet7.Server.Data
 
         }
 
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     base.OnConfiguring(optionsBuilder);
-        //     optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EmployeeApp;Trusted_Connection=true;TrustServerCertificate=true;");
-        // }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>();
             modelBuilder.Entity<Employee>();
+            modelBuilder.Entity<Category>();
         }
 
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Category> Categories => Set<Category>();
     }
 }

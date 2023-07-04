@@ -55,7 +55,7 @@ namespace BlazorCrudDotNet7.Server.Services.ProductService
                 dbProduct.Title = product.Title;
                 dbProduct.Description = product.Description;
                 dbProduct.Quantity = product.Quantity;
-                dbProduct.Category = product.Category;
+                dbProduct.CategoryId = product.CategoryId;
                 dbProduct.Price = product.Price;
 
                 await _context.SaveChangesAsync();

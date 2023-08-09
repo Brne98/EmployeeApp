@@ -1,5 +1,6 @@
 using BlazorCrudDotNet7.Server.Data;
 using BlazorCrudDotNet7.Server.Services.AuthService;
+using BlazorCrudDotNet7.Server.Services.CategoryService;
 using BlazorCrudDotNet7.Server.Services.EmployeeService;
 using BlazorCrudDotNet7.Server.Services.ProductService;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 var app = builder.Build();

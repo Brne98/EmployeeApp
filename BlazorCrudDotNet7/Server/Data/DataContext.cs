@@ -20,10 +20,12 @@ namespace BlazorCrudDotNet7.Server.Data
         {
             modelBuilder.Entity<Product>();
             modelBuilder.Entity<Employee>();
+            modelBuilder.Entity<Category>();
         }
 
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Category> Categories => Set<Category>();
     }
 }

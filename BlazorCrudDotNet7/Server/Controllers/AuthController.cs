@@ -34,5 +34,18 @@ public class AuthController : ControllerBase
         return Ok(token);
     }
 
-    
+    [HttpPost("register")]
+    public async Task<ActionResult<User>> Register(User request)
+    {
+        var user = new User
+        {
+            Username = request.Username,
+            Password = request.Password
+        };
+
+        _context.Users.Add(user);
+        _context.SaveChanges();
+
+        return Ok(user);
+    }
 }
